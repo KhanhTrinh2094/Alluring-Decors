@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">Modify Project</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Modify Project</a></li>
+                </ol>
+                <div id="page-content">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Modify Project</h3>
+                        </div>
+                        <h:form class="form-horizontal" enctype="multipart/form-data" prependId="false">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="name" ph:placeholder="Project Name" class="form-control" value="#{projectMB.project.projectName}" required="true" requiredMessage="Project name can not be empty">
+                                            <f:validateLength minimum="0" maximum="100" />
+                                        </h:inputText>
+                                        <h:messages for="name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <h:selectOneMenu id="status" value="#{projectMB.project.status}" required="true" requiredMessage="Please select status" class="form-control">
+                                            <f:selectItem itemValue="0" itemLabel="On-Going " />
+                                            <f:selectItem itemValue="1" itemLabel="Up-Coming " />
+                                            <f:selectItem itemValue="2" itemLabel="Accomplished " />
+                                        </h:selectOneMenu>
+                                        <h:messages for="status" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Image</label>
+                                    <div class="col-sm-9">
+                                        <h:inputFile id="image" validator="#{projectMB.validateFile}" value="#{projectMB.file}" required="true" requiredMessage="Please select a image" />
+                                        <h:messages for="image" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Image Description (You can select multiple images)</label>
+                                    <div class="col-sm-9">
+                                        <h:inputFile id="img" validator="#{projectMB.validateFile}" value="#{projectMB.imgs}" required="true" requiredMessage="Please select a image description" ph:multiple="true" />
+                                        <h:messages for="img" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Project Price</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText class="form-control" ph:placeholder="Project Price" value="#{projectMB.project.projectPrice}" disabled="true">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Customer : </label>
+                                    <div class="col-sm-9">
+                                        <h:inputText class="form-control" ph:placeholder="Project Customer" value="#{projectMB.project.userID.fullname}" disabled="true">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Start Date</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="startDate" class="form-control" ph:placeholder="Start Date" value="#{projectMB.project.startDate}" required="true" requiredMessage="Start Date can not be empty">
+                                            <f:validateLength minimum="3" maximum="50" />
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>  
+                                        </h:inputText>
+                                        <h:message for="startDate" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Delivery Date</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="deliveryDate" class="form-control" ph:placeholder="Delivery Date" value="#{projectMB.project.deliveryDate}" required="true" requiredMessage="Delivery Date can not be empty">
+                                            <f:validateLength minimum="3" maximum="50" />
+                                            <f:convertDateTime pattern="MM/dd/yyyy"/>  
+                                        </h:inputText>
+                                        <h:message for="deliveryDate" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Desciption</label>
+                                    <div class="col-sm-9">
+                                        <h:inputTextarea id="description" ph:placeholder="Project Description" class="form-control" value="#{projectMB.project.projectDetail}" required="true" requiredMessage="Project Description can not be empty" />
+                                        <h:messages for="description"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <h:commandButton class="btn btn-info" type="submit" action="#{projectMB.update()}" value="Save" />
+                                <a href="project_manager.xhtml"><button class="btn btn-warning" type="button">Back</button></a>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="script">
+                <script src="#{rootResource}/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+                <script>
+                    $('#startDate').datepicker({autoclose: true});
+                    $('#deliveryDate').datepicker({autoclose: true});
+                </script>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

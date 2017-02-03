@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">System Statitics</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">System Statitics</a></li>
+                </ol>
+                <div id="page-content">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">System Statitics</h3>
+                        </div>
+                        <form class="form-horizontal">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total domain : </label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.domainCount} domains
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total Customer : </label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.userCount} customers
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total Service : </label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.serviceCount} services
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total Project : </label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.projectCount} projects
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total Bill : </label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.billCount} bills
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total Feedback</label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.feedbackCount} feedbacks
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Total FAQ</label>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8">
+                                        #{countMB.faqCount} faqs
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <a href="index.xhtml"><button class="btn btn-warning" type="button">Back</button></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="script">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

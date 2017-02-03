@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                <c:if test="#{billMB.bill != null}">
+                    <div id="page-title">
+                        <h1 class="page-header text-overflow">Bill Detail</h1>
+                    </div>
+                    <ol class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Bill Detail</a></li>
+                    </ol>
+                    <div id="page-content">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Bill Detail</h3>
+                            </div>
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">ID : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.billID}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Order Time : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            <h:outputText value="#{billMB.bill.orderTime}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy h:m" />
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Total Price : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            <h:outputText value="#{billMB.bill.totalPrice}">
+                                                <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Order Name : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.userID.fullname}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Order Address : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.userID.address}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Order contact number : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.userID.phone}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Recipient Name : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.recipientName}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Recipient address : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.recipientAddress}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Recipient Contact Number : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.contactNumber}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Note : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                            #{billMB.bill.note}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Services : </label>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-8">
+                                        </div>
+                                    </div>
+                                    <c:forEach items="#{billMB.bill.billDetailsCollection}" var="row">
+                                        <div class="form-group ">
+                                            <label class="control-label col-lg-2"></label>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-lg-9">
+                                                <div class="col-lg-3">
+                                                    #{row.serviceID.serviceName}
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    #{row.quantity}
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <h:outputText value="#{row.price}">
+                                                        <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                    </h:outputText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <a href="bill_manager.xhtml"><button class="btn btn-info" type="button">Back</button></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </c:if>
+            </ui:define>
+            <ui:define name="script">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

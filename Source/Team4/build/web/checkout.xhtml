@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <c:if test="#{empty session.getAttribute('USER')}">
+                    #{facesContext.externalContext.redirect("login.xhtml")}
+                </c:if>
+                <c:if test="#{not empty session.getAttribute('USER')}">
+                    <div id="main" role="main">
+                        <div class="container">
+                            <ul class="breadcrumb">
+                                <li><a href="/" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                                <li><span class="page-title">Checkout</span></li>
+                            </ul>
+                            <div class="row sidebar_left ">
+                                <div class="column_center">
+                                    <div id="main_content" class="col-sm-9">
+                                        <div class="cart-scope">
+                                            <div class="page_header">
+                                                <h1 class="page_heading">Checkout</h1>
+                                            </div>  
+                                            <div class="page_content">
+                                                <c:choose>
+                                                    <c:when test="#{empty session.getAttribute('CART')}">
+                                                        <div>
+                                                            <h2>It appears that your cart is currently empty!</h2>
+                                                            <h3>You can continue browsing <a href="index.xhtml">here</a>.</h3>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="cart-list">
+                                                            <c:set var="total" value="0" />
+                                                            <c:forEach items="#{cartMB.cart}" var="row">
+
+                                                                <div class="row cart-item">
+                                                                    <h:form>
+                                                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                                                            <div class="item_image">
+                                                                                <a href="">  
+                                                                                    <img src="#{rootImage}/#{row.value.image}" style="width: 195px; height: 195px;" />
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-9 col-md-9 col-sm-9">
+                                                                            <div class="item_remove pull-right">
+                                                                                <h:commandLink class="cart" action="#{cartMB.removeCart(row.key)}">
+                                                                                    <i class="fa fa-times"></i>
+                                                                                </h:commandLink>
+                                                                            </div>
+                                                                            <div class="product_name">
+                                                                                <a href="">
+                                                                                    #{row.value.title}
+                                                                                </a>
+                                                                            </div>
+                                                                            <h3 class="item_vendor">In Your Cart</h3>
+                                                                            <div class="item_price">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-4">
+                                                                                        <div class="price">
+                                                                                            <span class="money">
+                                                                                                <h:outputText value="#{row.value.price}">
+                                                                                                    <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                                                </h:outputText>
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-8">
+                                                                                        <div class="qty">
+                                                                                            <label>Qty: 
+                                                                                                <h:inputText class="input-small form-control" value="#{row.value.quantity}">
+                                                                                                    <f:convertNumber />
+                                                                                                </h:inputText>
+                                                                                                &nbsp;
+                                                                                                <h:commandLink class="cart" action="#{cartMB.updateCart(row)}" value="Update" />
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="total col-sm-12">
+                                                                                        <h3>Total:  
+                                                                                            <span class="money">
+                                                                                                <h:outputText value="#{row.value.price * row.value.quantity}">
+                                                                                                    <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                                                </h:outputText>
+                                                                                            </span>
+                                                                                        </h3>
+                                                                                    </div>
+                                                                                </div> 
+                                                                            </div>        
+                                                                        </div>
+                                                                    </h:form>
+                                                                </div>
+                                                                <c:set var="total" value="#{total + row.value.price * row.value.quantity}" />
+                                                            </c:forEach>
+                                                        </div>
+                                                        <div class="cart_subtotal">
+                                                            <h3>Subtotal 
+                                                                <span class="money">
+                                                                    <h:outputText value="#{total}">
+                                                                        <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                    </h:outputText>
+                                                                </span>
+                                                            </h3>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>  
+                                            <div class="template_content">	
+                                                <div class="form-horizontal">    
+                                                    <h:form>
+                                                        <div class="clearfix form-group">
+                                                            <label class="login control-label col-sm-4">Recipient Name</label>
+                                                            <div class="col-sm-4">
+                                                                <h:inputText value="#{billMB_US.bill.recipientName}" id="name" class="form-control" required="true" requiredMessage="Recipient Name can not be empty">
+                                                                    <f:validateLength minimum="3" maximum="60" />
+                                                                </h:inputText>
+                                                                <h:messages for="name" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix form-group">
+                                                            <label class="login control-label col-sm-4">Recipient Address</label>
+                                                            <div class="col-sm-4">
+                                                                <h:inputText value="#{billMB_US.bill.recipientAddress}" id="address" class="form-control" required="true" requiredMessage="Recipient Address can not be empty">
+                                                                    <f:validateLength minimum="3" maximum="150" />
+                                                                </h:inputText>
+                                                                <h:messages for="address" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix form-group">
+                                                            <label class="login control-label col-sm-4">Recipient Phone</label>
+                                                            <div class="col-sm-4">
+                                                                <h:inputText value="#{billMB_US.bill.contactNumber}" id="phone" class="form-control" required="true" requiredMessage="Recipient Phone can not be empty">
+                                                                    <f:validateLength minimum="10" maximum="11" />
+                                                                    <f:validateRegex pattern="[0-9]{10,11}" />
+                                                                </h:inputText>
+                                                                <h:messages for="phone" />
+                                                            </div>
+                                                        </div>
+                                                        <div id="first_name" class="clearfix form-group">
+                                                            <label class="login control-label col-sm-4">Note</label>
+                                                            <div class="col-sm-4">
+                                                                <h:inputTextarea value="#{billMB_US.bill.note}" id="note" class="form-control" required="true" requiredMessage="Note can not be empty">
+                                                                    <f:validateLength minimum="3" maximum="150" />
+                                                                </h:inputTextarea>
+                                                                <h:messages for="note" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-offset-4 col-sm-4">
+                                                                <h:commandButton value="Checkout" class="btn btn-primary" action="#{billMB_US.checkout()}" />
+                                                            </div>
+                                                        </div>
+                                                    </h:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ui:include src="/templates/users/left.xhtml" />
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

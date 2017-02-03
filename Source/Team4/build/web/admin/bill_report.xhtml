@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Bill Report</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 {
+                width: 100%;    
+                background-color: #f1f1c1;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <c:if test="#{empty param.number or empty param.column or empty param.sort}">
+            #{facesContext.externalContext.redirect("bill_manager.xhtml")}
+        </c:if>
+        <c:if test="#{not empty param.number and not empty param.column and not empty param.sort}">
+            <h1 align="center">Bill Report</h1>
+            Date : 
+            <h:outputText value="#{session.lastAccessedTime}">
+                <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+            <br /><br />
+
+            <table style="width:100%">
+                <tr>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Order Time</th>
+                    <th>Total Price</th>
+                    <th>Recipient Name</th>
+                    <th>Recipient Address</th>
+                    <th>Recipient Phone</th>
+                    <th>Note</th>
+                </tr>
+                <c:forEach items="#{billMB.report(param.number, param.column, param.sort)}" var="row">
+                    <tr>
+                        <td>#{row.billID}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="#{row.orderStatus == -1}">
+                                    Cancel
+                                </c:when>
+                                <c:when test="#{row.orderStatus == 0}">
+                                    New Order
+                                </c:when>
+                                <c:when test="#{row.orderStatus == 1}">
+                                    In progress
+                                </c:when>
+                                <c:otherwise>
+                                    Complete
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <h:outputText value="#{row.orderTime}">
+                                <f:convertDateTime pattern="dd/MM/yyyy h:m" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            <h:outputText value="#{row.totalPrice}">
+                                <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                            </h:outputText>
+                        </td>
+                        <td>#{row.recipientName}</td>
+                        <td>#{row.recipientAddress}</td>
+                        <td>#{row.contactNumber}</td>
+                        <td style="max-width: 200px; word-wrap: break-word">
+                            #{row.note}
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br />
+            Total Number Of Record: #{billMB.report(param.number, param.column, param.sort).size()}
+        </c:if>
+    </h:body>
+</html>
+

@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">Modify Service</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Modify Service</a></li>
+                </ol>
+                <div id="page-content">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Modify Service</h3>
+                        </div>
+                        <h:form class="form-horizontal" enctype="multipart/form-data">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">ID</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText ph:placeholder="Service ID" class="form-control" value="#{serviceMB.services.serviceID}" disabled="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="name" ph:placeholder="Service Name" class="form-control" value="#{serviceMB.services.serviceName}" required="true" requiredMessage="Service name can not be empty">
+                                            <f:validateLength minimum="3" maximum="100" />
+                                        </h:inputText>
+                                        <h:messages for="name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Image</label>
+                                    <div class="col-sm-9">
+                                        <img src="#{rootImage}/#{serviceMB.services.image}" style="height: 50px; width: 50px;" />
+                                        <h:inputFile id="image" validator="#{serviceMB.validateFile}" value="#{serviceMB.file}" required="true" requiredMessage="Please select a image" />
+                                        <h:messages for="image" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Domain</label>
+                                    <div class="col-sm-9">
+                                        <h:selectOneMenu id="domainID" value="#{serviceMB.services.domainID}" required="true" requiredMessage="Please select domain" class="form-control">
+                                            <f:selectItems value="#{serviceMB.domainItems}"/>
+                                        </h:selectOneMenu>
+                                        <h:messages for="domainID" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Price</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="price" ph:placeholder="Service Price" class="form-control" value="#{serviceMB.services.servicePrice}" required="true" requiredMessage="Service price can not be empty">
+                                            <f:validateLongRange minimum="10000" maximum="10000000" />
+                                            <f:convertNumber />
+                                        </h:inputText>
+                                        <h:messages for="price" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Desciption : </label>
+                                    <div class="col-sm-9">
+                                        <h:inputTextarea id="description" ph:placeholder="Service Description" class="form-control" value="#{serviceMB.services.serviceDescription}" required="true" requiredMessage="Service Description can not be empty">
+                                            <f:validateLength minimum="3" maximum="500" />
+                                        </h:inputTextarea>
+                                        <h:messages for="description" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <h:commandButton class="btn btn-info" value="Save" action="#{serviceMB.update()}" />
+                                <a href="service_manager.xhtml"><button class="btn btn-warning" type="button">Back</button></a>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="script">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

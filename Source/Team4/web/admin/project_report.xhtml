@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Project Report</title>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+                text-align: left;
+            }
+            table#t01 {
+                width: 100%;    
+                background-color: #f1f1c1;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <c:if test="#{empty param.number or empty param.column or empty param.sort}">
+            #{facesContext.externalContext.redirect("project_manager.xhtml")}
+        </c:if>
+        <c:if test="#{not empty param.number and not empty param.column and not empty param.sort}">
+            <h1 align="center">Project Report</h1>
+            Date : 
+            <h:outputText value="#{session.lastAccessedTime}">
+                <f:convertDateTime pattern="dd/MM/yyyy" />
+            </h:outputText>
+            <br /><br />
+
+            <table style="width:100%">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Customer</th>
+                    <th>Price</th>
+                    <th>Start Date</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+                <c:forEach items="#{projectMB.report(param.number, param.column, param.sort)}" var="row">
+                    <tr>
+                        <td>#{row.projectID}</td>
+                        <td>#{row.projectName}</td>
+                        <td>
+                            <img src="#{request.contextPath}/upload//project/#{row.thumbImage}" style="width:50px;height:50px" />
+                        </td>
+                        <td>#{row.userID.fullname}</td>
+                        <td>
+                            <h:outputText value="#{row.projectPrice}">
+                                <f:convertNumber pattern="###,###₫" currencySymbol="₫" type="currency"/>
+                            </h:outputText>
+                        </td>
+                        <td>
+                            <h:outputText value="#{row.startDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            <h:outputText value="#{row.deliveryDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="#{row.status == 0}">
+                                    On-Going 
+                                </c:when>
+                                <c:when test="#{row.status == 1}">
+                                    Up-Coming
+                                </c:when>
+                                <c:otherwise>
+                                    Accomplished
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <br />
+            Total Number Of Record: #{projectMB.report(param.number, param.column, param.sort).size()}
+        </c:if>
+    </h:body>
+</html>
+

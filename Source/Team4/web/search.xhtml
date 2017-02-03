@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <div id="main" role="main">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><a href="" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                            <li><span class="page-title">Search</span></li>
+                        </ul>
+                        <div class="row sidebar_left ">
+                            <div class="column_center">
+                                <div id="main_content" class="col-sm-9">
+                                    <div class="collection-scope">
+                                        <div class="page_header">
+                                            <h1 class="page_heading">Search : "#{searchMB_US.name}"</h1>
+                                        </div>
+                                        <div class="page_content">  
+                                            <div class="product-listing__collection">
+                                                <div class="product_listing_main">
+                                                    <div class="row">
+                                                        <c:forEach items="#{searchMB_US.list}" var="row">
+                                                            <div class="product col-sm-4">
+                                                                <div>
+                                                                    <div class="product_img">  
+                                                                        <h:form>
+                                                                            <h:commandLink action="#{servicesMB_US.showService()}">
+                                                                                <f:param name="ID" value="#{row.serviceID}" />
+                                                                                <img src="#{rootImage}/#{row.image}" style="width: 270px; height: 270px;"/>
+                                                                            </h:commandLink>
+                                                                        </h:form>
+                                                                    </div>
+                                                                    <div class="product_info">
+                                                                        <div class="product_name">
+                                                                            <h:form>
+                                                                                <h:commandLink action="#{servicesMB_US.showService()}" value="#{row.serviceName}">
+                                                                                    <f:param name="ID" value="#{row.serviceID}" />
+                                                                                </h:commandLink>
+                                                                            </h:form>
+                                                                        </div>
+                                                                        <div class="product_price">
+                                                                            <span class="money">
+                                                                                <h:outputText value="#{row.servicePrice}">
+                                                                                    <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                                </h:outputText>
+                                                                            </span>
+                                                                        </div>
+                                                                        <h:form>
+                                                                            <h:commandButton  value="Add to cart" class="btn btn-cart" action="#{cartMB.addCart(row)}" />
+                                                                        </h:form>       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="pagination">
+                                                <!--<span class="page current">1</span> <span class="page"><a href="/collections/all?page=2" title="">2</a></span> <span class="page"><a href="/collections/all?page=3" title="">3</a></span> <span class="next"><a href="/collections/all?page=2" title="">Next &raquo;</a></span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ui:include src="/templates/users/left.xhtml" />
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

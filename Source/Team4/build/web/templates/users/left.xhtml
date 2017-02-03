@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="column_left column col-sm-3">
+                <div class="widget widget__types">
+                    <h3 class="widget_header">Domain</h3>
+                    <div class="widget_content">
+                        <ul class="list">
+                            <h:form>
+                                <c:forEach items="#{domainMB_US.list}" var="row">
+                                    <li class="Sets">
+                                        <h:commandLink action="#{domainMB_US.showDomain}" value="#{row.domainName}">
+                                            <f:param name="ID" value="#{row.domainID}" />
+                                        </h:commandLink>
+                                    </li>
+                                </c:forEach>
+                            </h:form>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget widget_best_sellers">
+                    <h3 class="widget_header">Random Service</h3>
+                    <div class="widget_content">
+                        <div class="product_listing_sidebar">
+                            <ui:repeat var="row" value="#{servicesMB_US.randomList(4)}">
+                                <div class="product">
+                                    <div class="product_img">  
+                                        <h:form>
+                                            <h:commandLink action="#{servicesMB_US.showService()}">
+                                                <f:param name="ID" value="#{row.serviceID}" />
+                                                <img src="#{rootImage}/#{row.image}" alt="" style="width: 90px; height: 90px;" />
+                                            </h:commandLink>
+                                        </h:form>
+                                    </div>
+                                    <div class="product_info">
+                                        <div class="product_name">
+                                            <h:form>
+                                                <h:commandLink action="#{servicesMB_US.showService()}" value="#{row.serviceName}">
+                                                    <f:param name="ID" value="#{row.serviceID}" />
+                                                </h:commandLink>
+                                            </h:form>
+                                        </div>
+                                        <div class="product_price">
+                                            <span class="money">
+                                                <h:outputText value="#{row.servicePrice}">
+                                                    <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                </h:outputText>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

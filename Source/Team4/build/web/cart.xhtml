@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <div id="main" role="main">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><a href="/" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                            <li><span class="page-title">Your Shopping Cart</span></li>
+                        </ul>
+                        <div class="row sidebar_left ">
+                            <div class="column_center">
+                                <div id="main_content" class="col-sm-9">
+                                    <div class="cart-scope">
+                                        <div class="page_header">
+                                            <h1 class="page_heading">Shopping Cart</h1>
+                                        </div>  
+                                        <div class="page_content">
+                                            <c:choose>
+                                                <c:when test="#{empty session.getAttribute('CART')}">
+                                                    <div>
+                                                        <h2>It appears that your cart is currently empty!</h2>
+                                                        <h3>You can continue browsing <a href="index.xhtml">here</a>.</h3>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>      
+                                                    <div class="cart-list">
+                                                        <c:set var="total" value="0" />
+                                                        <c:forEach items="#{cartMB.cart}" var="row">
+
+                                                            <div class="row cart-item">
+                                                                <h:form>
+                                                                    <div class="col-lg-3 col-md-3 col-sm-3">
+                                                                        <div class="item_image">
+                                                                            <a href="">  
+                                                                                <img src="#{rootImage}/#{row.value.image}" style="width: 195px; height: 195px;" />
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                                                        <div class="item_remove pull-right">
+                                                                            <h:commandLink class="cart" action="#{cartMB.removeCart(row.key)}">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                        <div class="product_name">
+                                                                            <a href="">
+                                                                                #{row.value.title}
+                                                                            </a>
+                                                                        </div>
+                                                                        <h3 class="item_vendor">In Your Cart</h3>
+                                                                        <div class="item_price">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-4">
+                                                                                    <div class="price">
+                                                                                        <span class="money">
+                                                                                            <h:outputText value="#{row.value.price}">
+                                                                                                <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                                            </h:outputText>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-sm-8">
+                                                                                    <div class="qty">
+                                                                                        <label>Qty: 
+                                                                                            <h:inputText class="input-small form-control" value="#{row.value.quantity}">
+                                                                                                <f:convertNumber />
+                                                                                            </h:inputText>
+                                                                                            &nbsp;
+                                                                                            <h:commandLink class="cart" action="#{cartMB.updateCart(row)}" value="Update" />
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="total col-sm-12">
+                                                                                    <h3>Total:  
+                                                                                        <span class="money">
+                                                                                            <h:outputText value="#{row.value.price * row.value.quantity}">
+                                                                                                <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                                            </h:outputText>
+                                                                                        </span>
+                                                                                    </h3>
+                                                                                </div>
+                                                                            </div> 
+                                                                        </div>        
+                                                                    </div>
+                                                                </h:form>
+                                                            </div>
+                                                            <c:set var="total" value="#{total + row.value.price * row.value.quantity}" />
+                                                        </c:forEach>
+                                                    </div>
+                                                    <div class="cart_subtotal">
+                                                        <h3>Subtotal 
+                                                            <span class="money">
+                                                                <h:outputText value="#{total}">
+                                                                    <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                </h:outputText>
+                                                            </span>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="cart_buttons">
+                                                        <a href="index.xhtml">Continue shopping</a>
+                                                        <span class="or">or</span>
+                                                        <a href="checkout.xhtml">
+                                                            <button type="button" name="checkout" class="btn btn-primary"> Check out</button>
+                                                        </a>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <ui:include src="/templates/users/left.xhtml" />
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

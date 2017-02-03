@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <!--<![endif]-->
+    <h:head>
+        <c:set var="root" value="#{request.contextPath}" />
+        <c:set var="rootResource" value="#{request.contextPath}/static/users" />
+        <c:set var="rootImage" value="#{request.contextPath}/upload" />
+
+        <meta charset="utf-8"/>
+        <title>Alluring Decors</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.png" />
+        <link href="#{rootResource}/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> 
+        <link href="#{rootResource}/css/assets.css" rel="stylesheet" type="text/css" media="all" /> 
+        <link href="#{rootResource}/css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="#{rootResource}/css/responsive.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="#{rootResource}/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+
+        <link href="#{rootResource}/css/css_002.css" rel="stylesheet" type="text/css" />
+        <link href="#{rootResource}/css/css_002.css" rel="stylesheet" type="text/css" />
+        <link href="#{rootResource}/css/css.css" rel="stylesheet" type="text/css" />
+
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <link href="//cdn.shopify.com/s/files/1/0545/8457/t/2/assets/ie8.css?11638908613352061302" rel="stylesheet" type="text/css"  media="all"  />
+        <![endif]-->
+
+        <!--[if IE 9]>
+        <link href="//cdn.shopify.com/s/files/1/0545/8457/t/2/assets/ie9.css?11638908613352061302" rel="stylesheet" type="text/css"  media="all"  />
+        <![endif]-->
+
+        <!--[if gte IE 9]>
+        <style type="text/css">.gradient {filter: none;}</style>
+        <![endif]-->
+
+        <script src="#{rootResource}/js/option_selection-54fd013c3dd1f914fc3ca277900ec7c1.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_008.js" type="text/javascript"></script>  
+        <script src="#{rootResource}/js/bootstrap.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery-migrate-1.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/shop.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_006.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/api.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/ajaxify-shop.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/hoverIntent.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/superfish.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/supersubs.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/sftouchscreen.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_004.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_007.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_005.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/tm-stick-up.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_002.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/currencies.js" type="text/javascript"></script>
+        <script src="#{rootResource}/js/jquery_003.js" type="text/javascript"></script>
+    </h:head>
+    <h:body>
+        <div id="wrapper">
+            <div id="wrapper2">
+                <ui:insert name="header" >
+                    <ui:include src="/templates/users/header.xhtml" />
+                </ui:insert>
+                <ui:insert name="content" >
+                </ui:insert>
+                <ui:insert name="footer" >
+                    <ui:include src="/templates/users/footer.xhtml" />
+                </ui:insert>
+            </div>
+        </div>
+        <ui:insert name="page_script">
+            <ui:include src="/templates/users/script.xhtml" />
+        </ui:insert>
+    </h:body>
+</html>
+

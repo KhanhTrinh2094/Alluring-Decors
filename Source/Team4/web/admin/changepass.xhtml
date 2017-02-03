@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough"
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">Change Password</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Change Password</a></li>
+                </ol>
+                <div id="page-content">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Change Password</h3>
+                        </div>
+                        <h:form class="form-horizontal">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Current Password</label>
+                                    <div class="col-sm-9">
+                                        <h:inputSecret ph:placeholder="Enter current password" class="form-control" value="#{adminMB.current}" id="current" required="true" requiredMessage="Current password can not be empty" />
+                                        <h:messages for="current" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">New Password : </label>
+                                    <div class="col-sm-9">
+                                        <h:inputSecret ph:placeholder="Enter new password" class="form-control" value="#{adminMB.newpass}" id="new" required="true" requiredMessage="New password can not be empty" />
+                                        <h:messages for="new" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Confirm Password : </label>
+                                    <div class="col-sm-9">
+                                        <h:inputSecret ph:placeholder="Enter confirm password" class="form-control" value="#{adminMB.confirm}" id="confirm" required="true" requiredMessage="Confirm password can not be empty" />
+                                        <h:messages for="confirm" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <h:commandButton class="btn btn-info" action="#{adminMB.changepass()}" value="Save" />
+                                <a href="index.xhtml"><button type="button" class="btn btn-warning">Back</button></a>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="script">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

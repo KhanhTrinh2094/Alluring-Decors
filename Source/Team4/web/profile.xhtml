@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <c:if test="#{empty session.getAttribute('USER')}">
+                    #{facesContext.externalContext.redirect("login.xhtml")}
+                </c:if>
+                <c:if test="#{not empty session.getAttribute('USER')}">
+                    <c:set var="profile" value="#{userMB_US.getUserByUsername(session.getAttribute('USER'))}" />
+                    <c:if test="#{empty profile}">
+                        #{facesContext.externalContext.redirect("login.xhtml")}
+                    </c:if>
+                    <c:if test="#{not empty profile}">
+                        <div id="main" role="main">
+                            <div class="container">
+                                <ul class="breadcrumb">
+                                    <li><a href="" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                                    <li><span class="page-title">Account</span></li>
+                                </ul>
+                                <div class="row sidebar_left sidebar_off">
+                                    <div class="column_center">
+                                        <div id="main_content" class="col-sm-12">
+                                            <div id="admin_header" class="customer customer_account">
+                                                <h2 class="page_heading">Account Details and Order History</h2>
+                                                <h2 class="customer_name">#{profile.username}<span class="divider">/</span><span class="email">#{profile.email}</span>
+                                                    <h:form><h:commandLink action="#{userMB_US.logout()}" value="Sign Out" /></h:form>
+                                                </h2>
+                                                <div class="row">
+                                                    <div id="customer_sidebar" class="col-sm-4">
+                                                        <div id="customer_detail" class="group">
+                                                            <address class="note">
+                                                                <ul class="address">
+                                                                    <li><strong>Name: </strong>#{profile.fullname}</li>
+                                                                    <li><strong>Address: </strong>#{profile.address}</li>
+                                                                    <li><strong>Email: </strong>#{profile.email}</li>
+                                                                    <li><strong>Phone: </strong>#{profile.phone}</li>
+                                                                </ul>
+                                                                <h:form>
+                                                                    <h:commandLink action="#{userMB_US.edit(profile.userID)}" value="Edit Profile" />
+                                                                </h:form>
+                                                                <a href="change_password.xhtml">Change Password</a>
+                                                            </address>
+                                                        </div>
+                                                    </div>
+                                                    <div id="customer_orders" class="col-sm-8">
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:if>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <div id="main" role="main">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><a href="/" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                            <li><span class="page-title">Create Account</span></li>
+                        </ul>
+                        <div class="row sidebar_left sidebar_off">
+                            <div class="column_center">
+                                <div id="main_content" class="col-sm-12">
+                                    <div id="template" class="customer customer__register">
+                                        <div id="customer">
+                                            <div id="create-customer">
+                                                <div class="template_header">
+                                                    <h2 class="page_heading">Create Account</h2>
+                                                </div>
+                                                <div class="template_content">	
+                                                    <div class="form-horizontal">    
+                                                        <h:form>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Username</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputText id="username" value="#{userMB_US.user.username}" class="form-control" size="30" required="true" requiredMessage="Username can not be empty">
+                                                                        <f:validateLength minimum="3" maximum="30" />
+                                                                    </h:inputText>
+                                                                    <h:messages for="username" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Password</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputSecret id="password" value="#{userMB_US.user.password}" class="form-control" size="30" required="true" requiredMessage="Password can not be empty">
+                                                                        <f:validateLength minimum="3" maximum="30" />
+                                                                    </h:inputSecret>
+                                                                    <h:messages for="password" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Fullname</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputText id="name" value="#{userMB_US.user.fullname}" class="form-control" size="30" required="true" requiredMessage="Fullname can not be empty">
+                                                                        <f:validateLength minimum="3" maximum="60" />
+                                                                    </h:inputText>
+                                                                    <h:messages for="name" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Address</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputText id="address" value="#{userMB_US.user.address}" class="form-control" size="30" required="true" requiredMessage="Address can not be empty">
+                                                                        <f:validateLength minimum="3" maximum="150" />
+                                                                    </h:inputText>
+                                                                    <h:messages for="address" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Email Address</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputText id="email" value="#{userMB_US.user.email}" class="form-control" size="30" required="true" requiredMessage="Email can not be empty">
+                                                                        <f:validateLength minimum="3" maximum="100" />
+                                                                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                                                    </h:inputText>
+                                                                    <h:messages for="email" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix form-group">
+                                                                <label class="login control-label col-sm-4">Phone</label>
+                                                                <div class="col-sm-4">
+                                                                    <h:inputText id="phone" value="#{userMB_US.user.phone}" class="form-control" size="30" required="true" requiredMessage="phone can not be empty">
+                                                                        <f:validateLength minimum="10" maximum="11" />
+                                                                        <f:validateRegex pattern="[0-9]{10,11}" />
+                                                                    </h:inputText>
+                                                                    <h:messages for="phone" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-offset-4 col-sm-4">
+                                                                    <h:commandButton class="btn btn-primary" value="Create" action="#{userMB_US.register()}" />
+                                                                    <span class="note">or <a href="index.xhtml">Return to Store</a></span>
+                                                                </div>
+                                                            </div>
+                                                        </h:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <c:if test="#{not empty request.getAttribute('error')}">
+                    <script type="text/javascript">
+                        alert('#{request.getAttribute("error")}');
+                    </script>
+                </c:if>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

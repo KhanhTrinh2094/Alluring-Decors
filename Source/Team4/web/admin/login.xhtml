@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough"
+      >
+    <h:head>
+        <title>Admin Login</title>
+        <meta charset="utf-8"/>
+
+        <c:set var="root" value="#{request.contextPath}/admin" />
+        <c:set var="rootResource" value="#{request.contextPath}/static/admins" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet" />
+        <link href="#{rootResource}/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/css/nifty.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/css/demo/nifty-demo.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/pace/pace.min.css" rel="stylesheet" />
+        <script src="#{rootResource}/plugins/pace/pace.min.js"></script>
+    </h:head>
+    <h:body>
+        <div id="container" class="cls-container">
+            <div id="bg-overlay" class="bg-img img-balloon"></div>
+            <div class="cls-header cls-header-lg">
+                <div class="cls-brand">
+                    <a class="box-inline" href="index.html">
+                        <span class="brand-title">Admin <span class="text-thin">Panel</span></span>
+                    </a>
+                </div>
+            </div>
+            <div class="cls-content">
+                <div class="cls-content-sm panel">
+                    <div class="panel-body">
+                        <p class="pad-btm">Sign In to your account</p>
+                        <h:form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <h:inputText id="username" class="form-control" value="#{adminMB.admin.username}" ph:placeholder="Username" required="true" requiredMessage="Username cannot be empty" />
+                                    <h:messages for="username" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+                                    <h:inputSecret id="password" class="form-control" value="#{adminMB.admin.password}" ph:placeholder="Password" required="true" requiredMessage="Password cannot be empty"  />
+                                    <h:messages for="password" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-8 text-left checkbox">
+                                    <label class="form-checkbox form-icon">
+                                        <input type="checkbox" /> Remember me
+                                    </label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group text-right">
+                                        <h:commandButton class="btn btn-success text-uppercase" action="#{adminMB.login()}" value="Sign In" />
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <c:if test="#{not empty request.getAttribute('error')}">
+            <script type="text/javascript">
+                alert('#{request.getAttribute("error")}');
+            </script>
+        </c:if>
+        <script src="#{rootResource}/js/jquery-2.1.1.min.js"></script>
+        <script src="#{rootResource}/js/bootstrap.min.js"></script>
+        <script src="#{rootResource}/plugins/fast-click/fastclick.min.js"></script>
+        <script src="#{rootResource}/js/nifty.min.js"></script>
+        <script src="#{rootResource}/js/demo/bg-images.js"></script>
+    </h:body>
+</html>
+

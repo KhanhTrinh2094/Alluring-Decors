@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <div id="main" role="main">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><a href="" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                            <li><span class="page-title">#{projectMB_US.project.projectName}</span></li>
+                        </ul>
+                        <div class="row sidebar_left ">
+                            <div class="column_center">
+                                <div id="main_content" class="col-sm-9">
+                                    <div class="product-scope">
+                                        <div class="product_wrap">
+                                            <div class="row">
+                                                <div id="product_image-container" class="col-sm-5">
+                                                    <div class="product_image">
+                                                        <ul class="bxslider">
+                                                            <li>                
+                                                                <a rel="product_images" class="fancybox" href="#{rootImage}/project/#{projectMB_US.project.thumbImage}">
+                                                                    <img src="#{rootImage}/project/#{projectMB_US.project.thumbImage}" style="width: 345px; height: 345px;"/>
+                                                                </a>
+                                                            </li>
+                                                            <c:forEach items="#{projectMB_US.project.imagesCollection}" var="imgItem">
+                                                                <li>
+                                                                    <a rel="product_images" class="fancybox" href="#{rootImage}/project/#{imgItem.imageUrl}">
+                                                                        <img src="#{rootImage}/project/#{imgItem.imageUrl}" style="width: 345px; height: 345px;"/>
+                                                                    </a>
+                                                                </li>    
+                                                            </c:forEach>
+                                                        </ul>        
+                                                    </div>
+
+                                                    <div id="bx-pager" class="product_image-additioanl"> 
+                                                        <a href='' data-slide-index="0">
+                                                            <img src="#{rootImage}/project/#{projectMB_US.project.thumbImage}" style="width: 105px; height: 105px;"/>
+                                                        </a>
+                                                        <c:set var="total" value="1" />
+                                                        <c:forEach items="#{projectMB_US.project.imagesCollection}" var="imgItem">
+                                                            <a href="" data-slide-index="#{total}">
+                                                                <img src="#{rootImage}/project/#{imgItem.imageUrl}" style="width: 105px; height: 105px;"/>
+                                                            </a>
+                                                            <c:set var="total" value="#{total + 1}" />
+                                                        </c:forEach>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="product_name">#{projectMB_US.project.projectName}</div>
+                                                    <div class="options clearfix"> 
+                                                        <div id="product_price">
+                                                            <p class="price product-price">
+                                                                <span class="money">
+                                                                    <h:outputText value="#{projectMB_US.project.projectPrice}">
+                                                                        <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                    </h:outputText>
+                                                                </span>
+                                                            </p>  
+                                                        </div> 
+                                                        <div class="variants-wrapper clearfix visuallyhidden"> 
+                                                        </div>            
+                                                    </div>
+                                                    <div class="product_details">
+                                                        <div class="product_vendor">Customer : #{projectMB_US.project.userID.fullname}</div>
+                                                        <div class="product_vendor">Project Status : 
+                                                            <c:choose>
+                                                                <c:when test="#{projectMB_US.project.status == 0}">
+                                                                    On-Going 
+                                                                </c:when>
+                                                                <c:when test="#{projectMB_US.project.status == 1}">
+                                                                    Up-Coming
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    Accomplished
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </div>
+                                                        <div class="product_vendor">Start Date : 
+                                                            <h:outputText value="#{projectMB_US.project.startDate}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                            </h:outputText>
+                                                        </div>
+                                                        <div class="product_vendor">End Date : 
+                                                            <h:outputText value="#{projectMB_US.project.deliveryDate}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                            </h:outputText>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="product_description" class="rte" itemprop="description">
+                                                        <h4>Description:</h4>
+                                                        <p>#{projectMB_US.project.projectDetail}</p>
+                                                    </div> 
+                                                </div>
+                                                <div class="row-fluid">
+                                                    <div class="span12">       
+                                                    </div>
+                                                </div>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget_related_products">
+                                        <h3>Random Project</h3>
+                                        <div class="widget_content">
+                                            <ul class="row product_listing_main product_listing_related">
+                                                <ui:repeat var="row" value="#{projectMB_US.randomList(4)}">
+                                                    <li class="product col-sm-3">
+                                                        <div>
+                                                            <div class="product_img">
+                                                                <h:form>
+                                                                    <h:commandLink action="#{projectMB_US.showProject()}">
+                                                                        <f:param name="ID" value="#{row.projectID}" />
+                                                                        <img src="#{rootImage}/project/#{row.thumbImage}" alt="" style="width: 195px; height: 195px;" />
+                                                                    </h:commandLink>
+                                                                </h:form>
+                                                            </div>
+                                                            <div class="product_info">
+                                                                <div class="product_name">
+                                                                    <h:form>
+                                                                        <h:commandLink action="#{projectMB_US.showProject()}" value="#{row.projectName}">
+                                                                            <f:param name="ID" value="#{row.projectID}" />
+                                                                        </h:commandLink>
+                                                                    </h:form>
+                                                                </div>
+                                                                <div class="product_price">
+                                                                    <span class="money">
+                                                                        <h:outputText value="#{row.projectPrice}">
+                                                                            <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                                                        </h:outputText>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ui:repeat>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        jQuery(function($) {
+
+                                            $('.bxslider').bxSlider({
+                                                pagerCustom: '#bx-pager'
+                                            });
+
+                                            $("a.fancybox").fancybox({
+                                                'transitionIn': 'elastic',
+                                                'transitionOut': 'elastic',
+                                                'speedIn': 600,
+                                                'speedOut': 200,
+                                                'overlayShow': true
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                            <ui:include src="/templates/users/left.xhtml" />                            
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

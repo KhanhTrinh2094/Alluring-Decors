@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <c:set var="root" value="#{request.contextPath}/admin" />
+        <c:set var="rootResource" value="#{request.contextPath}/static/admins" />
+        <c:set var="rootImage" value="#{request.contextPath}/upload" />
+        <c:if test="#{(view.viewId != '/login.xhtml') and (empty session.getAttribute('ADUser'))}">
+            #{facesContext.externalContext.redirect("login.xhtml")}
+        </c:if>
+        <meta charset="utf-8"/>
+        <title>Admin Panel</title>
+
+        <link rel="shortcut icon" href="#{request.contextPath}/favicon.png" />
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet" />
+        <link href="#{rootResource}/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/css/nifty.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/switchery/switchery.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/css/demo/nifty-demo.min.css" rel="stylesheet" />
+        <link href="#{rootResource}/plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet" />
+	<link href="#{rootResource}/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" />
+    </h:head>
+    <h:body>
+        <div id="container" class="effect mainnav-lg">
+            <ui:insert name="header" >
+                <ui:include src="/templates/admins/header.xhtml" />
+            </ui:insert>
+            <div class="boxed">
+                <div id="content-container">
+                    <ui:insert name="content" >
+                    </ui:insert>
+                </div>
+                <ui:insert name="menu" >
+                    <ui:include src="/templates/admins/menu.xhtml" />
+                </ui:insert>
+            </div>
+            <ui:insert name="footer" >
+                <ui:include src="/templates/admins/footer.xhtml" />
+            </ui:insert>
+            <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+        </div>
+        <ui:insert name="page_script">
+            <ui:include src="/templates/admins/script.xhtml" />
+        </ui:insert>
+        <ui:insert name="script">
+        </ui:insert>
+        <c:if test="#{not empty request.getAttribute('error')}">
+            <script type="text/javascript">
+                alert('#{request.getAttribute("error")}');
+            </script>
+        </c:if>
+    </h:body>
+</html>
+

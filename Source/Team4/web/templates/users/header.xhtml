@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <header id="header">
+                <div class="container">
+                    <h:form>
+                        <ul class="header_user">
+                            <c:if test="#{not empty session.getAttribute('USER')}">
+                                <li class="firstItem"><a href="profile.xhtml">#{session.getAttribute("USER")}</a></li>
+                                <li>
+                                    <h:commandLink action="#{userMB_US.logout()}" value="Sign Out" />
+                                </li>
+                            </c:if>
+                            <c:if test="#{empty session.getAttribute('USER')}">
+                                <li class="firstItem"><a href="login.xhtml" id="customer_login_link">Log in</a></li>
+                                <li><a href="register.xhtml" id="customer_register_link">Create an account</a></li>
+                            </c:if>
+                            <li class="checkout lastItem"><a href="checkout.xhtml">Check out</a></li>
+                        </ul>
+                    </h:form>
+                    <div class="header_cart">
+                        <a href="cart.xhtml">
+                            <span>Cart:</span>
+                            <span class="cart-total-items">
+                                <span class="count">#{cartMB.cart.size()}</span>
+                            </span>
+                            <span>item(s)</span>
+                            <span>
+                                &nbsp;–&nbsp;
+                            </span>
+                            <c:set var="total" value="0" />
+                            <c:if test="#{not empty session.getAttribute('CART')}">
+                                <c:forEach items="#{cartMB.cart}" var="row">
+                                    <c:set var="total" value="#{total + row.value.price * row.value.quantity}" />
+                                </c:forEach>
+                                <span class="money cart-total-price">
+                                    <h:outputText value="#{total}">
+                                        <f:convertNumber pattern="###,### VND" currencySymbol=" VND" type="currency"/>
+                                    </h:outputText>
+                                </span>
+                            </c:if>
+                            <c:if test="#{empty session.getAttribute('CART')}">
+                                <span class="money cart-total-price">0 VND</span>
+                            </c:if>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="logo">
+                        <a href="index.xhtml">
+                            <b>decoration</b>
+                            <span>Alluring Decors project</span>
+                        </a>
+                    </div>
+                    <div class="header_search">
+                        <h:form prependId="false">
+                            <h:inputText id="search-field" class="hint" ph:placeholder="Seach services ... " value="#{searchMB_US.name}" />
+                            <h:commandButton action="#{searchMB_US.search()}" id="search-submit">
+                                <i class="fa fa-search"></i>
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="" style="position: relative; top: 0px;" id="navigation">
+                        <div class="container">
+                            <nav role="navigation">
+                                <ul class="sf-menu visible-md visible-lg">
+                                    <li class="firstItem">
+                                        <a href="index.xhtml">Home</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="">Domain</a>
+                                        <ul class="dropdown">
+                                            <h:form>
+                                                <c:forEach items="#{domainMB_US.list}" var="row">
+                                                    <li>
+                                                        <h:commandLink action="#{domainMB_US.showDomain}" value="#{row.domainName}">
+                                                            <f:param name="ID" value="#{row.domainID}" />
+                                                        </h:commandLink>
+                                                    </li>
+                                                </c:forEach>
+                                            </h:form>
+                                        </ul>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="project.xhtml">Project</a>
+                                        <ul class="dropdown">
+                                            <li>
+                                                <a href="project.xhtml?id=0">On-Going </a>
+                                            </li>
+                                            <li>
+                                                <a href="project.xhtml?id=1">Up-Coming </a>
+                                            </li>
+                                            <li>
+                                                <a href="project.xhtml?id=2">Accomplished </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="aboutus.xhtml">About Us</a>
+                                    </li>
+
+                                    <li class="">
+                                        <a href="FAQ.xhtml">FAQ</a>
+                                    </li>
+
+                                    <li class="lastItem">
+                                        <a href="contact.xhtml">Contact us</a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div style="position: relative; display: block; height: 0px;" class="pseudoStickyBlock"></div>
+                </div>
+            </header>
+        </ui:composition>
+    </h:body>
+</html>
+

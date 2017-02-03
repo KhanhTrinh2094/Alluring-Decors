@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ph="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/admins/page.xhtml">
+            <ui:define name="content">
+                #{fAQMB.newFAQ()}
+                <div id="page-title">
+                    <h1 class="page-header text-overflow">Add FAQ</h1>
+                </div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Add FAQ</a></li>
+                </ol>
+                <div id="page-content">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Add FAQ</h3>
+                        </div>
+                        <h:form class="form-horizontal">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Title</label>
+                                    <div class="col-sm-9">
+                                        <h:inputText id="title" class="form-control" ph:placeholder="FAQ Question" value="#{fAQMB.faq.title}" required="true" requiredMessage="FAQ Question can not be empty">
+                                            <f:validateLength minimum="3" maximum="400" />
+                                        </h:inputText>
+                                        <h:messages for="title" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Detail : </label>
+                                    <div class="col-sm-9">
+                                        <h:inputTextarea id="detail" class="form-control" ph:placeholder="FAQ Answer" value="#{fAQMB.faq.detail}" required="true" requiredMessage="FAQ Answer can not be empty" />
+                                        <h:messages for="detail" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <h:commandButton class="btn btn-info" value="Save" action="#{fAQMB.add()}" />
+                                <a href="faq_manager.xhtml"><button class="btn btn-warning" type="button">Back</button></a>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+            <ui:define name="script">
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

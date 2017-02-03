@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/users/page.xhtml">
+            <ui:define name="content">
+                <div id="main" role="main">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><a href="" class="homepage-link" title="Back to the frontpage">Home</a></li>
+                            <li><span class="page-title">FAQ Question</span></li>
+                        </ul>
+                        <div class="row sidebar_left ">
+                            <div class="column_center">
+                                <div id="main_content" class="col-sm-9">
+                                    <div class="page-scope">
+                                        <div class="page_header">
+                                            <h1 class="page_heading">FAQ Question</h1>
+                                        </div>
+                                        <div class="page_content">
+                                            <div class="rte">
+                                                <div class="documentation" style="text-align: left;">
+                                                    <c:forEach items="#{fAQMB_US.list}" var="row">
+                                                        <div class="panel accordion-panel" style="padding: 10px;">
+                                                            <div class="accordion-heading">
+                                                                <h4 class="accordion-title">
+                                                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-#{row.id}" href="#accordion-#{row.id}-item-#{row.id}" aria-expanded="false">
+                                                                        #{row.title}
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="accordion-#{row.id}-item-#{row.id}" class="accordion-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                                                <div class="accordion-body">
+                                                                    <p>#{row.detail}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="column_left column col-sm-3">
+                                <div class="widget widget__types">
+                                    <h3 class="widget_header">Domain</h3>
+                                    <div class="widget_content">
+                                        <ul class="list">
+                                            <li class="Bracelets">
+                                                <a href="/collections/types?q=Bracelets" title="Bracelets">The House</a>
+                                            </li>
+                                            <li class="Necklaces">
+                                                <a href="/collections/types?q=Necklaces" title="Necklaces">The Offices</a>
+                                            </li>
+                                            <li class="Sets">
+                                                <a href="/collections/types?q=Sets" title="Sets">The “Community Halls”</a>
+                                            </li>
+                                            <li class="Sets">
+                                                <a href="/collections/types?q=Sets" title="Sets">The Restaurants</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="widget widget_best_sellers">
+                                    <h3 class="widget_header">Random Service</h3>
+                                    <div class="widget_content">
+                                        <div class="product_listing_sidebar">
+                                            <div class="product">
+                                                <div class="product_img">  
+                                                    <a href="">
+                                                        <img src="http://localhost:8080/Team4/static/users/img/product/1.jpg" style="width: 90px; height: 90px;" />
+                                                    </a>
+                                                </div>
+                                                <div class="product_info">
+                                                    <div class="product_name">
+                                                        <a href="">Living Room Decorations</a>
+                                                    </div>
+                                                    <div class="product_price">
+                                                        <span class="money">1.200.000 VND</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product">
+                                                <div class="product_img">  
+                                                    <a href="">
+                                                        <img src="http://localhost:8080/Team4/static/users/img/product/2.jpg" style="width: 90px; height: 90px;" />
+                                                    </a>
+                                                </div>
+                                                <div class="product_info">
+                                                    <div class="product_name">
+                                                        <a href="">Kitchen Decorations</a>
+                                                    </div>
+                                                    <div class="product_price">
+                                                        <span class="money">800.000 VND</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="product">
+                                                <div class="product_img">  
+                                                    <a href="">
+                                                        <img src="http://localhost:8080/Team4/static/users/img/product/3.jpg" style="width: 90px; height: 90px;" />
+                                                    </a>
+                                                </div>
+                                                <div class="product_info">
+                                                    <div class="product_name">
+                                                        <a href="">Bedroom Decorations</a>
+                                                    </div>
+                                                    <div class="product_price">
+                                                        <span class="money">400.000 VND</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
